@@ -24,7 +24,7 @@ const ConnectedItem = (props) => {
         >
           <CardMedia
             style={{ height: 140 }}
-            image={props.item.imageUrls}
+            image={`http://localhost:4000/${props.item.image}`}
           />
           <CardContent style={{ height: 50 }}>
             <div

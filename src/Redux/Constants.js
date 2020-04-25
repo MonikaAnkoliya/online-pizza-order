@@ -1,3 +1,5 @@
+export const GET_PIZZA_ITEM = "GET_PIZZA_ITEM";
+export const GET_ORDER_HISTORY = "GET_ORDER_HISTORY";
 export const ADD_ITEM_IN_CART = "ADD_ITEM_IN_CART";
 export const SHOW_CART_DLG = "SHOW_CART_DLG";
 export const DELETE_CART_ITEM = "DELETE_CART_ITEM";

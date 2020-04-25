@@ -6,7 +6,9 @@ const initialState = {
   showCartDialog: false,
   showMenu: true,
   checkedOutItems: [],
-  loggedInUser: null
+  loggedInUser: null,
+  pizzaItem: [],
+  orderHistory: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,6 +33,10 @@ const rootReducer = (state = initialState, action) => {
     }
     case CONSTANTS.SHOW_CART_DLG:
       return { ...state, showCartDialog: action.payload };
+    case CONSTANTS.GET_PIZZA_ITEM:
+      return { ...state, pizzaItem: action.payload };
+    case CONSTANTS.GET_ORDER_HISTORY:
+      return { ...state, orderHistory: action.payload };
     case CONSTANTS.DELETE_CART_ITEM:
       return {
         ...state,
