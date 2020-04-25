@@ -1,32 +1,32 @@
-import * as CONSTANTS from "./Constants";
+import * as CONSTANTS from './Constants';
 
-export const addItemInCart = item => ({
+export const addItemInCart = (item) => ({
   type: CONSTANTS.ADD_ITEM_IN_CART,
-  payload: item
+  payload: item,
 });
-export const showCartDlg = status => ({
+export const showCartDlg = (status) => ({
   type: CONSTANTS.SHOW_CART_DLG,
-  payload: status
+  payload: status,
 });
-export const deleteCartItem = id => ({
+export const deleteCartItem = (id) => ({
   type: CONSTANTS.DELETE_CART_ITEM,
-  payload: id
+  payload: id,
 });
 export const toggleMenu = () => ({
   type: CONSTANTS.TOGGLE_MENU,
-  payload: null
+  payload: null,
 });
-export const updateCartItemQnt = obj => ({
+export const updateCartItemQnt = (obj) => ({
   type: CONSTANTS.UPDATE_CART_ITEM_QUANTITY,
-  payload: obj
+  payload: obj,
 });
-export const setCheckedOutItems = items => ({
+export const setCheckedOutItems = (items) => ({
   type: CONSTANTS.SET_CHECKEDOUT_ITEMS,
-  payload: items
+  payload: items,
 });
-export const setLoggedInUser = user => ({
+export const setLoggedInUser = (user) => ({
   type: CONSTANTS.SET_LOGGED_IN_USER,
-  payload: user
+  payload: user,
 });
 export const logout = () => ({
   type: CONSTANTS.LOGOUT,

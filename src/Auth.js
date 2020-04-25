@@ -7,7 +7,7 @@ const Auth = {
     setTimeout(
       () =>
         cb({
-          name: name
+          name: name,
         }),
       100
     );
@@ -16,7 +16,7 @@ const Auth = {
   signout(cb) {
     this._isAuthenticated = false;
     setTimeout(cb, 100);
-  }
+  },
 };
 
 export default Auth;

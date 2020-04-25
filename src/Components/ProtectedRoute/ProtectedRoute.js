@@ -1,24 +1,24 @@
-import { Route, Redirect } from "react-router-dom";
-import React from "react";
-import { connect } from "react-redux";
+import { Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { connect } from 'react-redux';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { loggedInUser: state.loggedInUser };
 };
 
 // Implementation of a protected route component
 const ConnectedProtectedRoute = ({ component: Component, ...rest }) => {
-    return (
+  return (
     <Route
       {...rest}
-      render={props => {
+      render={(props) => {
         return rest.loggedInUser ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
-              state: { from: props.location }
+              pathname: '/login',
+              state: { from: props.location },
             }}
           />
         );

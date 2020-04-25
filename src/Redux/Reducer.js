@@ -1,4 +1,4 @@
-import * as CONSTANTS from "./Constants";
+import * as CONSTANTS from './Constants';
 
 // If multiple components need access to some data, in that case we store such data in redux.
 const initialState = {
@@ -8,13 +8,13 @@ const initialState = {
   checkedOutItems: [],
   loggedInUser: null,
   pizzaItem: [],
-  orderHistory: []
+  orderHistory: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_ITEM_IN_CART: {
-      let index = state.cartItems.findIndex(x => x.id === action.payload.id);
+      let index = state.cartItems.findIndex((x) => x.id === action.payload.id);
 
       // Is the item user wants to add already in the cart?
       if (index !== -1) {
@@ -22,7 +22,7 @@ const rootReducer = (state = initialState, action) => {
         let cloneCartItems = [...state.cartItems];
         cloneCartItems[index] = {
           ...cloneCartItems[index],
-          quantity: state.cartItems[index].quantity + action.payload.quantity
+          quantity: state.cartItems[index].quantity + action.payload.quantity,
         };
 
         return { ...state, cartItems: cloneCartItems };
@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, action) => {
     case CONSTANTS.DELETE_CART_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter(x => x.id !== action.payload)
+        cartItems: state.cartItems.filter((x) => x.id !== action.payload),
       };
     case CONSTANTS.TOGGLE_MENU:
       return { ...state, showMenu: !state.showMenu };
@@ -51,14 +51,14 @@ const rootReducer = (state = initialState, action) => {
     case CONSTANTS.SET_CHECKEDOUT_ITEMS:
       return { ...state, checkedOutItems: action.payload };
     case CONSTANTS.UPDATE_CART_ITEM_QUANTITY: {
-      let index = state.cartItems.findIndex(x => x.id === action.payload.id);
+      let index = state.cartItems.findIndex((x) => x.id === action.payload.id);
 
       // User wants to update quantity of existing item.
       if (index !== -1) {
         let cloneCartItems = [...state.cartItems];
         cloneCartItems[index] = {
           ...cloneCartItems[index],
-          quantity: action.payload.quantity
+          quantity: action.payload.quantity,
         };
 
         return { ...state, cartItems: cloneCartItems };

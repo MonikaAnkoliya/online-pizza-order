@@ -1,16 +1,12 @@
-import React from "react";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import {
-  showCartDlg,
-  deleteCartItem,
-  updateCartItemQnt
-} from "../../Redux/Actions";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import React from 'react';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import { showCartDlg, deleteCartItem, updateCartItemQnt } from '../../Redux/Actions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
-const CartRow = props => {
+const CartRow = (props) => {
   let { item } = props;
   return (
     <TableRow>
@@ -31,13 +27,13 @@ const CartRow = props => {
           type="number"
           style={{ width: 40 }}
           value={item.quantity}
-          onChange={e => {
+          onChange={(e) => {
             let quantity = parseInt(e.target.value, 10);
             if (quantity < 0) return;
             props.dispatch(
               updateCartItemQnt({
                 id: item.id,
-                quantity
+                quantity,
               })
             );
           }}
