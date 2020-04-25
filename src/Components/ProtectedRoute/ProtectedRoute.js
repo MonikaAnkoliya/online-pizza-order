@@ -8,7 +8,7 @@ const mapStateToProps = state => {
 
 // Implementation of a protected route component
 const ConnectedProtectedRoute = ({ component: Component, ...rest }) => {
-  return (
+    return (
     <Route
       {...rest}
       render={props => {

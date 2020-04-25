@@ -4,22 +4,16 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { addItemInCart } from "../../Redux/Actions";
 import Item from "../Item/Item";
-import { connect } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import {getPizzaItem, getPizzaItemByID} from "../../Redux/apiCall";
-const mapStateToProps = state => {
-    return { pizzaItem: state.pizzaItem };
-};
-const mapDispatchToProps = dispatch => ({
-    getPizzaItems: () => dispatch(getPizzaItem()),
-    getPizzaItemByID: (productId) => dispatch(getPizzaItemByID(productId)),
-    addItemInCart: (obj) => dispatch(addItemInCart(obj))
-});
+
 const ConnectedDetails = (props)=>{
     const [relatedItems,setRelatedItems] = useState([])
     const [quantity,setQuantity] = useState(1)
     const [item,setItem] = useState(null)
     const [itemLoading,setItemLoading] = useState(false)
+    const dispatch = useDispatch();
     let isCompMounted = false;
 
     useEffect(()=>{
@@ -33,9 +27,9 @@ const ConnectedDetails = (props)=>{
 
     const fetchProductAndRelatedItems= async(productId) =>{
         setItemLoading(true)
-        props.getPizzaItems().then((response)=>{
+        dispatch(getPizzaItem()).then((response)=>{
             let itemData;
-            props.getPizzaItemByID(productId).then((res)=>{
+            dispatch(getPizzaItemByID(productId)).then((res)=>{
                 itemData = res.data.result;
                 let relatedItems = response;
                 // Make sure this component is still mounted before we set state..
@@ -112,10 +106,10 @@ const ConnectedDetails = (props)=>{
                         color="primary"
                         variant="outlined"
                         onClick={() => {
-                            props.addItemInCart({
-                                    ...item,
-                                    quantity: quantity
-                                });
+                            dispatch(addItemInCart({
+                                ...item,
+                                quantity: quantity
+                            }))
                         }}
                     >
                         Add to Cart <AddShoppingCartIcon style={{ marginLeft: 5 }} />
@@ -161,5 +155,4 @@ const ConnectedDetails = (props)=>{
         </div >
     );
 }
-let Details = connect(mapStateToProps, mapDispatchToProps)(ConnectedDetails);
-export default Details;
+export default ConnectedDetails;

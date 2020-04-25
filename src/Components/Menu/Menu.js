@@ -1,8 +1,7 @@
-import React, {Component, Fragment, useState} from "react";
+import React, {Fragment, useState} from "react";
 import {NavLink} from "react-router-dom";
 import queryString from "query-string";
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {dataForTheMenu} from "../../Data";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
@@ -12,15 +11,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-
-const mapStateToProps = state => {
-    return {
-        showMenu: state.showMenu,
-    };
-};
 const ConnectedMenu = (props) => {
     const [expandedMenuItems, setExpandedMenuItems] = useState({1: true})
-    const [dataForTheMenuData, setDataForTheMenu] = useState(dataForTheMenu)
+    const [dataForTheMenuData] = useState(dataForTheMenu)
+    const showMenu = useSelector((state)=>state.showMenu);
     // This method determines from URL whether to highlight a menu item or not
     const isMenuItemActive = (item, location) => {
 
@@ -101,7 +95,7 @@ const ConnectedMenu = (props) => {
                 })}
         </List>)
     }
-    if (!props.showMenu) return null;
+    if (!showMenu) return null;
     return (
         <div style={{
             backgroundColor: "#FAFAFB",
@@ -113,5 +107,4 @@ const ConnectedMenu = (props) => {
     );
 }
 // this.renderMenu = this.renderMenu.bind(this)
-const Menu = withRouter(connect(mapStateToProps)(ConnectedMenu));
-export default Menu;
+export default ConnectedMenu;

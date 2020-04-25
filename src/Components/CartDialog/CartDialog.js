@@ -6,7 +6,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { connect } from "react-redux";
+import { connect,useSelector } from "react-redux";
 import { showCartDlg, setCheckedOutItems } from "../../Redux/Actions";
 import { withRouter } from "react-router-dom";
 import CartRow from "./CartRow";
@@ -14,19 +14,17 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCartOutlined";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
-const mapStateToProps = state => {
-  return { open: state.showCartDialog, items: state.cartItems };
-};
-
 const ConnectedCartDialog = (props) => {
-    let totalPrice = props.items.reduce((accumulator, item) => {
+    const open = useSelector((state) =>  state.showCartDialog);
+    const items = useSelector((state) =>  state.cartItems);
+    let totalPrice = items.reduce((accumulator, item) => {
       return accumulator + item.price * item.quantity;
     }, 0);
 
     return (
       <div>
         <Dialog
-          open={props.open}
+          open={open}
           onClose={() => {
             props.dispatch(showCartDlg(false));
           }}
@@ -58,7 +56,7 @@ const ConnectedCartDialog = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.items.map((item, index) => {
+                {items.map((item, index) => {
                   return <CartRow item={item} key={item.id} {...props} />;
                 })}
               </TableBody>
@@ -80,7 +78,7 @@ const ConnectedCartDialog = (props) => {
               disabled={totalPrice === 0}
               onClick={() => {
                 props.dispatch(showCartDlg(false));
-                props.dispatch(setCheckedOutItems(props.items));
+                props.dispatch(setCheckedOutItems(items));
                 props.history.push("/login");
               }}
             >
@@ -91,5 +89,4 @@ const ConnectedCartDialog = (props) => {
       </div>
     );
 }
-const CartDialog = withRouter(connect(mapStateToProps)(ConnectedCartDialog));
-export default CartDialog;
+export default withRouter(connect()(ConnectedCartDialog));

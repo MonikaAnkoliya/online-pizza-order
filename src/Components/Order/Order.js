@@ -1,6 +1,5 @@
-import React, {Component, useEffect, useState} from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from "react";
+import { connect,useDispatch,useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,27 +9,18 @@ import TableRow from "@material-ui/core/TableRow";
 import { setCheckedOutItems } from "../../Redux/Actions";
 import {getHistoryOfOrder} from "../../Redux/apiCall";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-const mapStateToProps = state => {
-  return {
-    checkedOutItems: state.checkedOutItems,
-    orderHistory: []
-  };
-};
-const mapDispatchToProps = dispatch => ({
-    getHistoryOfOrder: () => dispatch(getHistoryOfOrder())
-});
 // This component shows the items user checked out from the cart.
 const ConnectedOrder = (props)=>{
-    let items = [];
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const orderHistory = useSelector((state)=>state.orderHistory || []);
     useEffect(()=>{
         fetchData()
     },[]);
 
     const fetchData=async ()=> {
         setLoading(true)
-        await props.getHistoryOfOrder();
+        await dispatch(getHistoryOfOrder())
         setLoading(false);
     };
     if (loading) {
@@ -38,12 +28,10 @@ const ConnectedOrder = (props)=>{
             <CircularProgress className="circular" />
         );
     }
-    console.log('props.orderHistory', props.orderHistory);
-    let totalPrice = props.orderHistory.reduce((accumulator, item) => {
+    let totalPrice = orderHistory.reduce((accumulator, item) => {
         debugger
         return accumulator + item.totalAmount * item.quantity;
     }, 0);
-    debugger
     return (
         <div style={{ padding: 10 }}>
             <div style={{ fontSize: 24, marginTop: 10 }}>
@@ -63,7 +51,7 @@ const ConnectedOrder = (props)=>{
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.orderHistory.map((item, index) => {
+                    {orderHistory.map((item, index) => {
                         const date = new Date(item.createdAt);
                         return (
                             <TableRow key={item.id}>
@@ -107,7 +95,7 @@ const ConnectedOrder = (props)=>{
                 variant="outlined"
                 disabled={totalPrice === 0}
                 onClick={() => {
-                    props.dispatch(setCheckedOutItems([]));
+                    dispatch(setCheckedOutItems([]))
                 }}
                 style={{ margin: 5, marginTop: 30 }}
             >
@@ -115,6 +103,5 @@ const ConnectedOrder = (props)=>{
             </Button>
         </div>
     );}
-const Order = withRouter(connect(mapStateToProps, mapDispatchToProps)(ConnectedOrder));
 
-export default Order;
+export default ConnectedOrder;

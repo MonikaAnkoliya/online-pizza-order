@@ -1,33 +1,25 @@
-import React, { Component,useState } from "react";
-import { withRouter, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import Auth from "../../Auth";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { setLoggedInUser } from "../../Redux/Actions";
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {sendOrder} from "../../Redux/apiCall";
-const mapStateToProps = state => {
-    return {
-        checkedOutItems: state.checkedOutItems
-    };
-};
-const mapDispatchToProps = dispatch => ({
-    sendOrder: (item) => dispatch(sendOrder(item)),
-    setLoggedInUser: (name) => dispatch(setLoggedInUser(name))
-});
+
 const ConnectedLogin =(props)=>{
     const [userName,setUserName] = useState("");
     const [address,setAddress] = useState("");
     const [phone,setPhone] = useState("");
     const [redirectToReferrer,setRedirectToReferrer] = useState(false);
-    const [wrongCred,setWrongCred] = useState(false);
+    const [wrongCred] = useState(false);
     const { from } = props.location.state || { from: { pathname: "/" } };
+    const dispatch = useDispatch();
+    const checkedOutItems = useSelector((state) =>  state.checkedOutItems);
     if (redirectToReferrer === true) {
         return <Redirect to={from} />;
     }
-    console.log('checkedOutItems',props.checkedOutItems);
 
     return (
         <div style={{
@@ -90,19 +82,32 @@ const ConnectedLogin =(props)=>{
                     variant="outlined"
                     color="primary"
                     onClick={() => {
-                        props.checkedOutItems.map((item) => {
-                            const order = {
-                                name: userName,
-                                phone,
-                                address,
-                                totalAmount: item.price,
-                                pizzaName: item.name,
-                                quantity: item.quantity
+                        let regMobile = /^[0][1-9]\d{9}$|^[1-9]\d{9}$/;
+                        if(userName && address && regMobile.test(phone)){
+                            checkedOutItems.map((item) => {
+                                const order = {
+                                    name: userName,
+                                    phone,
+                                    address,
+                                    totalAmount: item.price,
+                                    pizzaName: item.name,
+                                    quantity: item.quantity
+                                }
+                                dispatch(sendOrder(order))
+                            })
+                            dispatch(setLoggedInUser({ name: userName }))
+                            setRedirectToReferrer(true)
+                        }else {
+                            let regMobile = /^[0][1-9]\d{9}$|^[1-9]\d{9}$/;
+                            if(!userName || !address){
+                                alert("Please enter all information")
                             }
-                            props.sendOrder(order);
-                        })
-                        props.setLoggedInUser({ name: userName })
-                        setRedirectToReferrer(true)
+                            else if(!regMobile.test(phone))
+                            {
+                                alert("Phone no must be 10 digit")
+                            }
+                        }
+
                     }}
                 >
                     Log in
@@ -114,6 +119,5 @@ const ConnectedLogin =(props)=>{
         </div>
     );
 };
-const Login = withRouter(connect(mapStateToProps, mapDispatchToProps)(ConnectedLogin));
 
-export default Login;
+export default ConnectedLogin;

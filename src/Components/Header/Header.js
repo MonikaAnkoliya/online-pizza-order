@@ -4,8 +4,7 @@ import "./Header.css";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Badge from "@material-ui/core/Badge";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import {
   showCartDlg,
   toggleMenu,
@@ -14,15 +13,12 @@ import cartImage from "../../Images/logo2.png";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
-const mapStateToProps = state => {
-  return {
-    nrOfItemsInCard: state.cartItems.length,
-  };
-};
-
 // Option items for product categories.
 
 const ConnectedHeader = (props) => {
+  const dispatch = useDispatch();
+  const nrOfItemsInCard = useSelector((state) =>  state.cartItems.length);
+
    return (
       <AppBar
         position="static"
@@ -32,7 +28,7 @@ const ConnectedHeader = (props) => {
           <div className="left-part">
             <IconButton
               onClick={() => {
-                props.dispatch(toggleMenu());
+                dispatch(toggleMenu());
               }}
             >
               <MenuIcon size="medium" />
@@ -49,10 +45,10 @@ const ConnectedHeader = (props) => {
             <IconButton
               aria-label="Cart"
               onClick={() => {
-                props.dispatch(showCartDlg(true));
+                dispatch(showCartDlg(true));
               }}
             >
-              <Badge badgeContent={props.nrOfItemsInCard} color="primary">
+              <Badge badgeContent={nrOfItemsInCard} color="primary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
@@ -62,5 +58,4 @@ const ConnectedHeader = (props) => {
     );
 }
 
-const Header = withRouter(connect(mapStateToProps)(ConnectedHeader));
-export default Header;
+export default ConnectedHeader;

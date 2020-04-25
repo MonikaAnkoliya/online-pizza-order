@@ -26,7 +26,7 @@ class App extends Component {
               <Route path="/details/:id" component={Details} />
               <Route path="/login" component={Login} />
               <Route path="/history" component={History} />
-              <Route path="/order" component={Order} />
+              <ProtectedRoute path="/order" component={Order} />
               <Route
                 component={() => (
                   <div style={{ padding: 20 }}>Page not found</div>
