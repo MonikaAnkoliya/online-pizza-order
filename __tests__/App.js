@@ -12,9 +12,6 @@ import Header from '../src/Components/Header/Header.js';
 import Menu from '../src/Components/Menu/Menu';
 import Footer from '../src/Components/Footer/Footer';
 import CartDialog from '../src/Components/CartDialog/CartDialog';
-import ProductList from '../src/Components/ProductList/ProductList';
-import {EmailSharp} from "@material-ui/icons";
-
 
 describe('App component', () => {
     let component;
