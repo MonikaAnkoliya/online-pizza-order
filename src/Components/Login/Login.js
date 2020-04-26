@@ -94,9 +94,8 @@ const ConnectedLogin = (props) => {
                   pizzaName: item.name,
                   quantity: item.quantity,
                 };
-                return order;
+                dispatch(sendOrder(order));
               });
-              dispatch(sendOrder(orderList));
               dispatch(setLoggedInUser({ name: userName }));
               setRedirectToReferrer(true);
             } else {
