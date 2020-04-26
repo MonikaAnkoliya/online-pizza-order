@@ -62,7 +62,7 @@ const ConnectedDetails = (props) => {
       </div>
       <div style={{ display: 'flex' }}>
         <img
-          src={`http://localhost:4000/${item.image}`}
+          src={`https://pizaa-56z.herokuapp.com/${item.image}`}
           alt=""
           width={250}
           height={250}

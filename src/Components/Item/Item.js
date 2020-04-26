@@ -20,7 +20,7 @@ const ConnectedItem = (props) => {
           props.history.push('/details/' + props.item.id);
         }}
       >
-        <CardMedia style={{ height: 140 }} image={`http://localhost:4000/${props.item.image}`} />
+        <CardMedia style={{ height: 140 }} image={`https://pizaa-56z.herokuapp.com/${props.item.image}`} />
         <CardContent style={{ height: 50 }}>
           <div
             style={{
