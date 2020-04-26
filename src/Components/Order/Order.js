@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { setCheckedOutItems } from '../../Redux/Actions';
 import { getHistoryOfOrder } from '../../Redux/apiCall';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // This component shows the items user checked out from the cart.
-const ConnectedOrder = () => {
+const ConnectedOrder = (props) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const orderHistory = useSelector((state) => state.orderHistory || []);
@@ -79,25 +79,10 @@ const ConnectedOrder = () => {
       <Button
         color="primary"
         variant="outlined"
-        disabled={totalPrice === 0}
-        onClick={() => {
-          console.log('purchased');
-        }}
+        onClick={()=>{props.history.push('/');}}
         style={{ margin: 5, marginTop: 30 }}
       >
-        Purchase
-      </Button>
-      <Button
-        color="secondary"
-        variant="outlined"
-        disabled={totalPrice === 0}
-        onClick={() => {
-          dispatch(setCheckedOutItems([]));
-          // props.dispatch(setCheckedOutItems([]));
-        }}
-        style={{ margin: 5, marginTop: 30 }}
-      >
-        Discard
+        Back to Home
       </Button>
     </div>
   );

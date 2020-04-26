@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getPizzaItem = () => (dispatch) => {
   return axios
-    .get('http://localhost:4000/product')
+    .get('https://pizaa-56z.herokuapp.com/product')
     .then((response) => {
       dispatch({
         type: 'GET_PIZZA_ITEM',
@@ -15,7 +15,7 @@ export const getPizzaItem = () => (dispatch) => {
     });
 };
 export const getPizzaItemByID = (id) => () => {
-  return axios.get(`http://localhost:4000/product/${id}`);
+  return axios.get(`https://pizaa-56z.herokuapp.com/product/${id}`);
 };
 export const getHistoryOfOrder = () => (dispatch) => {
   return axios
@@ -33,7 +33,7 @@ export const getHistoryOfOrder = () => (dispatch) => {
 };
 export const sendOrder = (item) => () => {
   return axios
-    .post('http://localhost:4000/history', item)
+    .post('https://pizaa-56z.herokuapp.com/history', item)
     .then((res) => {
       console.log(res);
     })

@@ -14,11 +14,10 @@ const ConnectedLogin = (props) => {
   const [phone, setPhone] = useState('');
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const [wrongCred] = useState(false);
-  const { from } = props.location.state || { from: { pathname: '/' } };
   const dispatch = useDispatch();
   const checkedOutItems = useSelector((state) => state.checkedOutItems);
   if (redirectToReferrer === true) {
-    return <Redirect to={from} />;
+    return <Redirect to={'order'} />;
   }
   console.log('checkedOutItems', props.checkedOutItems);
 
