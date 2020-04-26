@@ -19,7 +19,7 @@ export const getPizzaItemByID = (id) => () => {
 };
 export const getHistoryOfOrder = () => (dispatch) => {
   return axios
-    .get(`http://localhost:4000/history`)
+    .get(`https://pizaa-56z.herokuapp.com/history`)
     .then((res) => {
       dispatch({
         type: 'GET_ORDER_HISTORY',
