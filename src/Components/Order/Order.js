@@ -28,9 +28,6 @@ const ConnectedOrder = (props) => {
     return <CircularProgress className="circular" />;
   }
   console.log('props.orderHistory', orderHistory);
-  let totalPrice = orderHistory.reduce((accumulator, item) => {
-    return accumulator + item.totalAmount * item.quantity;
-  }, 0);
   return (
     <div style={{ padding: 10 }}>
       <div style={{ fontSize: 24, marginTop: 10 }}>Order summary</div>
@@ -65,17 +62,6 @@ const ConnectedOrder = (props) => {
           })}
         </TableBody>
       </Table>
-
-      <div
-        style={{
-          color: '#504F5A',
-          marginLeft: 5,
-          marginTop: 50,
-          fontSize: 22,
-        }}
-      >
-        Total price: {totalPrice} $
-      </div>
       <Button
         color="primary"
         variant="outlined"
