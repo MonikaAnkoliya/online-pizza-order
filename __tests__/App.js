@@ -1,12 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {shallow, mount} from 'enzyme';
-import {MemoryRouter} from 'react-router';
-import createRouterContext from 'react-router-test-context'
-import {Provider} from 'react-redux'
-import configureStore from 'redux-mock-store'
-
 import App from "../src/App";
 import Header from '../src/Components/Header/Header.js';
 import Menu from '../src/Components/Menu/Menu';
