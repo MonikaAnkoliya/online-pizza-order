@@ -13,8 +13,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const ConnectedOrder = (props) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const orderHistory = useSelector((state) => state.orderHistory || []);
-
+  let orderHistory = useSelector((state) => state.orderHistory || []);
+  const fetchData2 = async () => {
+    await dispatch(getHistoryOfOrder());
+  };
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -23,7 +25,7 @@ const ConnectedOrder = (props) => {
     };
     fetchData();
   }, [dispatch]);
-
+  fetchData2();
   if (loading) {
     return <CircularProgress className="circular" />;
   }
