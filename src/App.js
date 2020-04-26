@@ -8,7 +8,6 @@ import CartDialog from './Components/CartDialog/CartDialog';
 import Details from './Components/Details/Details';
 import Order from './Components/Order/Order';
 import Login from './Components/Login/Login';
-import History from './Components/History/History';
 import Footer from './Components/Footer/Footer';
 
 class App extends Component {
@@ -24,7 +23,6 @@ class App extends Component {
               <Route path="/" exact component={ProductList} />
               <Route path="/details/:id" component={Details} />
               <Route path="/login" component={Login} />
-              <Route path="/history" component={History} />
               <Route path="/order" component={Order} />
               <Route component={() => <div style={{ padding: 20 }}>Page not found</div>} />
             </Switch>

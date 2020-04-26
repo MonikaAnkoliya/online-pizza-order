@@ -5,14 +5,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './Redux/Store';
 
-let app = (
+const MainApp = (
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
 );
+export default MainApp;
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(MainApp, document.getElementById('root'));

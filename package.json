@@ -6,13 +6,16 @@
     "@material-ui/core": "^3.1.1",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.19.2",
+    "babel-plugin-css-modules-transform": "^1.6.2",
     "query-string": "^6.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.4.0",
     "redux": "^4.0.0",
+    "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
@@ -21,11 +24,15 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "fix": "eslint --fix ."
+    "fix": "eslint --fix .",
+    "unit:test": "jest --watch --verbose"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
@@ -34,7 +41,8 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.1",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "react-router-test-context": "^0.1.0"
   },
   "browserslist": {
     "production": [
@@ -46,6 +54,16 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/fileTransform.js"
+    },
+    "setupFiles": [
+      "<rootDir>/src/setupTests.js",
+      "<rootDir>/global-mocks.js"
     ]
   }
 }
