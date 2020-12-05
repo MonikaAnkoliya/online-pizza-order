@@ -17,6 +17,3 @@ After you have installed all dependencies, you may run the app.
 
 ### Running Tests:
 * `npm run unit:test`
-
-### Live preview available at:
-* https://calm-hollows-28956.herokuapp.com/
